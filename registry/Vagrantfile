@@ -1,0 +1,36 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+require 'yaml'
+
+SETTINGS = YAML.load_file 'settings.yml'
+VAGRANTFILE_API_VERSION = '2'
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  # Configuration
+  config.vm.box = 'peru/ubuntu-18.04-server-amd64'
+  config.vm.box_version = '20180703.01'
+  config.vm.hostname = SETTINGS['virtual_machine_name']
+
+  # Network
+  config.vm.network 'private_network', ip: SETTINGS['ip_address']
+
+  # Provider
+  config.vm.provider 'virtualbox' do |vb|
+    vb.cpus = 2
+    vb.memory = '2048'
+    vb.name = SETTINGS['virtual_machine_name']
+    vb.gui = false
+  end
+
+  # File Provision
+  config.vm.provision 'file', source: './letsencrypt/letsencrypt.tar', destination: '/home/vagrant/letsencrypt.tar'
+  config.vm.provision 'file', source: './apache2/sites-available/000-default.conf', destination: '/home/vagrant/000-default.conf'
+  config.vm.provision 'file', source: './apache2/sites-available/default-ssl.conf', destination: '/home/vagrant/default-ssl.conf'
+  config.vm.provision 'file', source: './docker/registry/docker-compose.yml', destination: '/home/vagrant/docker-compose.yml'
+
+  # Shell Provision
+  config.vm.provision 'shell', path: './scripts/install-packages.sh'
+  config.vm.provision 'shell', path: './scripts/configure-registry.sh', env: { 'DOMAIN_NAME' => SETTINGS['domain_name'] }
+
+end

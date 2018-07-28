@@ -1,0 +1,4 @@
+---
+ip_address: 192.168.33.10
+virtual_machine_name: docker-registry
+domain_name: docker-registry.demo.com
