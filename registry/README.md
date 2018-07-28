@@ -55,14 +55,33 @@ vagrant up
 
 ### **Testing**
 
+* Add to `/etc/hosts` file
+
+```sh
+192.168.33.10 docker-registry.demo.com
+```
+
 * Login into the Docker Registry
 
 ```ssh
 docker login docker-registry.demo.com
 ```
 
+```browser
+https://docker-registry.demo.com/v2
+```
+
+* Listing Repositories
+
+```browser
+https://docker-registry.demo.com/v2/_catalog
+```
+
 **Note. Change `docker-registry.demo.com` by your own domain name specified before in `settings.yml` file.**
 
-### **Registry Service**
+### **Default Credentials**
 
-* Default user/password `demo:demo`
+| Application     | User    | Password |
+| --------------- | ------- | -------- |
+| SSH             | vagrant | vagrant  |
+| Docker Registry | demo    | demo     |
