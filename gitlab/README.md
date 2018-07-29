@@ -1,4 +1,4 @@
-# **Provisioning Docker Registry**
+# **Provisioning Repository Manager - Gitlab**
 
 ## **Prerequisites**
 
