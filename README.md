@@ -9,3 +9,5 @@ The purpose of this is to try to show how to deploy an application with a single
 ## **Infrastructure**
 
 * [Docker Registry](./registry/README.md)
+* [Repository Manager - Gitlab](./gitlab/README.md)
+* [Jenkins](./jenkins/README.md)

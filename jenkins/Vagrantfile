@@ -1,0 +1,31 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+require 'yaml'
+
+SETTINGS = YAML.load_file 'settings.yml'
+VAGRANTFILE_API_VERSION = '2'
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  # Configuration
+  config.vm.box = 'peru/ubuntu-18.04-server-amd64'
+  config.vm.box_version = '20180703.01'
+  config.vm.hostname = SETTINGS['virtual_machine_name']
+
+  # Network
+  config.vm.network 'private_network', ip: SETTINGS['ip_address']
+
+  # Provider
+  config.vm.provider 'virtualbox' do |vb|
+    vb.cpus = 2
+    vb.memory = '2048'
+    vb.name = SETTINGS['virtual_machine_name']
+    vb.gui = false
+  end
+
+  # Shell Provision
+  config.vm.provision 'shell', path: './scripts/install-packages.sh'
+  config.vm.provision 'shell', path: './scripts/configure-jenkins.sh'
+  config.vm.provision 'shell', inline: 'echo "Jenkins Default User/Password = [ root / $(cat /var/lib/jenkins/secrets/initialAdminPassword) ]"'
+
+end

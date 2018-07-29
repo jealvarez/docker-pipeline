@@ -15,7 +15,7 @@
 
 * Configure the Virtual Machine setting the values of the [`settings.yml`](./settings.yml)
 
-| Property                         | Description                              | Example                    |
+| Property             | Description                                          | Example                    |
 | -------------------- | ---------------------------------------------------- | -------------------------- |
 | ip_address           | IP Address of the Virtual Machine                    | 192.168.33.10              |
 | virtual_machine_name | Name of the Virtual Machine                          | docker-registry            |

@@ -1,0 +1,16 @@
+version: '3.3'
+
+services:
+
+  repository-manager:
+    restart: always
+    image: gitlab/gitlab-ce:latest
+    hostname: ${DOMAIN_NAME}
+    ports:
+      - 80:80
+      - 22:22
+      - 443:443
+    volumes:
+      - ./srv/gitlab/config:/etc/gitlab
+      - ./srv/gitlab/logs:/var/log/gitlab
+      - ./srv/gitlab/data:/var/opt/gitlab
